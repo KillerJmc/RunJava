@@ -34,7 +34,7 @@ if (-not (Test-Path $filePath))
 # 按情况执行
 if ($filePath.EndsWith('.jar'))
 {
-    java -jar $filePath
+    java `-cp ./* -jar $filePath
 }
 elseif ($filePath.EndsWith('.java'))
 {
@@ -44,8 +44,8 @@ elseif ($filePath.EndsWith('.java'))
     # 转化源码的编码为系统编码并输出到临时Java文件来解决编码问题
     cat -Encoding UTF8 $filePath | Out-File -Encoding default $tmpJavaPath
 
-    # 执行临时Java文件
-    java $tmpJavaPath
+    # 执行临时Java文件（如果有外部依赖需要把所有jar包放在和java文件相同的文件夹）
+    java `-cp ./* $tmpJavaPath
 
     # 清除临时Java文件
     rm $tmpJavaPath
