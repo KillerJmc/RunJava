@@ -1,13 +1,13 @@
 # RunJava
-### Date: 2021.2.21
 
 ## Description
-This tool lets you run a single java or executable jar file without installing JDK!
+
+This tool lets you run a single Java or executable Jar file by double-click!
 
 ## Usage
-1. You can **drag** a java or jar file from **the root path** to the "java.exe" and then it'll run immediately.
-2. You can start "java.exe" directly after writing a default java or jar file path to the **DEFAULT file** whose located in **the root path**.
 
-#### JDK version must ge 11, also you need to put JDK into the jdk directory in the root path.
+1. Define **JAVA_HOME** as a System Environment Variable.
+2. Clone this repository to anywhere on the disk you like.
+3. Double-click a .java or .jar file, specify `RunJava.cmd`  as the default program to open.
+4. Enjoy it!
 
- 
