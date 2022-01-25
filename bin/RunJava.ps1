@@ -24,6 +24,9 @@ elseif ($args.Length -gt 1)
 # 文件路径
 $filePath = $args[0].ToString()
 
+# 文件名
+[string] $fileName = [System.IO.Path]::GetFileNameWithoutExtension($filePath)
+
 # 检查路径是否存在
 if (-not (Test-Path $filePath))
 {
@@ -34,6 +37,13 @@ if (-not (Test-Path $filePath))
 # 按情况执行
 if ($filePath.EndsWith('.jar'))
 {
+    # 如果文件名以“-w”结尾，就用javaw执行
+    if ($fileName.EndsWith('-w')) 
+    {
+        javaw `-cp ./*`;./lib/* -jar $tmpJavaPath
+        return
+    }
+
     java `-cp ./*`;./lib/* -jar $filePath
 }
 elseif ($filePath.EndsWith('.java'))
@@ -43,6 +53,14 @@ elseif ($filePath.EndsWith('.java'))
 
     # 转化源码的编码为系统编码并输出到临时Java文件来解决编码问题
     cat -Encoding UTF8 $filePath | Out-File -Encoding default $tmpJavaPath
+    
+    # 如果文件名以“-w”结尾，就用javaw执行
+    if ($fileName.EndsWith('-w')) 
+    {
+        javaw `-cp ./*`;./lib/* $tmpJavaPath
+        # 为了让程序顺利运行，不删除临时的Java文件
+        return
+    }
 
     # 执行临时Java文件（如果有外部依赖需要把所有jar包放在同级目录或同级的lib目录中）
     java `-cp ./*`;./lib/* $tmpJavaPath
