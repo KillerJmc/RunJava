@@ -1,3 +1,3 @@
 @echo off
 
-powershell -ExecutionPolicy Bypass -File %~dp0\bin\RunJava.ps1 %*
+powershell -ExecutionPolicy Bypass -File "%~dp0\bin\RunJava.ps1" %*
